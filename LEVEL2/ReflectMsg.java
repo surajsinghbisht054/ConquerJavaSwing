@@ -6,28 +6,40 @@
 */
 
 // import module
-import java.awt.*;
-import java.awt.event.*;
+//import java.awt.*;
+//import java.awt.event.*;
 import javax.swing.*;
 
 
 
 // Our GUI Class 
-class ReflectMsg {
+public class ReflectMsg {
+
+	// decleration of objects
 	private JFrame frame;
 	private JLabel label1;
 	private JLabel label2;
-	private JPanel panel1; 
-	
-
-	// function to prepare
-	private void prepareGUI(){
-
-	}
+	private JPanel panel1;
+	private JButton button;
 
 	// constructor
 	ReflectMsg(){
-		prepareGUI();
+		prepareGUI();	// prepare GUI Function Call
+
+	}
+
+
+
+
+	// Prepare GUI Object
+	public void prepareGUI(){
+		frame = new JFrame();
+		button = new JButton("Click Here");
+		button.setBounds(130, 100, 100, 40);
+		frame.add(button);
+		frame.setSize(400, 500);
+		frame.setVisible(true);
+
 
 	}
 
@@ -35,8 +47,9 @@ class ReflectMsg {
 	// our main function
 	public static void main(String[] args){
 		ReflectMsg root = new ReflectMsg();
-
 	}
+
+
 
 
 }
