@@ -33,11 +33,19 @@ public class ReflectMsg {
 
 	// Prepare GUI Object
 	public void prepareGUI(){
-		frame = new JFrame();
+		// creating frame object
+		frame = new JFrame("Reflect Message Frome");
+		// creating button
 		button = new JButton("Click Here");
+		// button bounds
 		button.setBounds(130, 100, 100, 40);
+		// Adding Button into Frame
 		frame.add(button);
+		// frame size
 		frame.setSize(400, 500);
+		// set frame layout type
+		frame.setLayout(null);
+		// set frame visibility
 		frame.setVisible(true);
 
 
