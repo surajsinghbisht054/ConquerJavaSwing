@@ -344,7 +344,7 @@ public class NumberQuizGame extends JFrame implements ActionListener
 
 		f.setSize(500,400); //set size of JFrame
 		f.setVisible(true); //setting Visibility
-		f.setResizable(false); //used for avoid resizing
+		//f.setResizable(false); //used for avoid resizing
 		f.getContentPane().setBackground(Color.black);	//color the Background for JFrame	
 
 		f.setComponent(); 
