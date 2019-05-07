@@ -69,23 +69,23 @@ public class NumberQuizGame extends JFrame
 		/*setting text on components*/
 		
 		user_guide_1=new JLabel("Get Ready To Jog your Brain. All the Best !!");
-		user_guide_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		user_guide_1.setFont(new Font("", Font.BOLD, 15));
 		user_guide_1.setForeground(Color.white);
 
 		user_guide_2=new JLabel("Click The Play Button");
-		user_guide_2.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		user_guide_2.setFont(new Font("", Font.BOLD, 20));
 		user_guide_2.setForeground(Color.white);
 
 		start_button=new JButton("PLAY");
 		start_button.setBackground(new Color(102,0,10));
 		start_button.setForeground(Color.white);
-		start_button.setFont(new Font("algerian",Font.BOLD,30));
+		start_button.setFont(new Font("",Font.BOLD,30));
 		start_button.setBorder(BorderFactory.createBevelBorder(0));
 		 
 
 		copy_right=new JLabel("© 2019 BLARE GROUP(www.blaregroup.com)");
 		copy_right.setForeground(Color.white);
-		copy_right.setFont(new Font("algerian",Font.ITALIC,10));
+		copy_right.setFont(new Font("",Font.ITALIC,10));
 		
 		setLayout(null); //setting layout to null so that we give our own layout
 
@@ -107,16 +107,8 @@ public class NumberQuizGame extends JFrame
 		start_button.addActionListener(new second_display());
 		
 		//Adding hover effect on start button
-		start_button.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		        start_button.setBackground(new Color(17,97,0));
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		        start_button.setBackground(new Color(102,0,10));
-		    }
-		});
-
+		start_button.addMouseListener(new HoverEffect(1));
+		
 	}
 
 	/*this class is used to handle event after clicking Start button  and it will create second user Interacting display*/
@@ -134,19 +126,19 @@ public class NumberQuizGame extends JFrame
 			
 			/*setting new components*/
 			user_guide=new JLabel("Choose the right answer");
-			user_guide.setFont(new Font("algerian",Font.BOLD,20));
+			user_guide.setFont(new Font("",Font.BOLD,20));
 			user_guide.setForeground(Color.white);
 
 			timer_text=new JLabel("Time Left");
 			timer_text.setForeground(Color.white);
-			timer_text.setFont(new Font("algerian",Font.BOLD,20));
+			timer_text.setFont(new Font("",Font.BOLD,20));
 
 			timer_value=new JLabel();
 			timer_value.setForeground(Color.red);
-			timer_value.setFont(new Font("algerian",Font.BOLD,25));
+			timer_value.setFont(new Font("",Font.BOLD,25));
 
 			score=new JLabel();
-			score.setFont(new Font("algerian",Font.BOLD,20));
+			score.setFont(new Font("",Font.BOLD,20));
 			score.setForeground(Color.red);
 
 			var_1=new JButton();
@@ -203,42 +195,11 @@ public class NumberQuizGame extends JFrame
 
 			/*	mouse over effect on options	*/	
 
-			op1.addMouseListener(new java.awt.event.MouseAdapter() {
-			    public void mouseEntered(java.awt.event.MouseEvent evt) {
-			        op1.setBackground(Color.pink);
-			    }
-
-			    public void mouseExited(java.awt.event.MouseEvent evt) {
-			        op1.setBackground(Color.white);
-			    }
-			});
-			op2.addMouseListener(new java.awt.event.MouseAdapter() {
-			    public void mouseEntered(java.awt.event.MouseEvent evt) {
-			        op2.setBackground(Color.pink);
-			    }
-
-			    public void mouseExited(java.awt.event.MouseEvent evt) {
-			        op2.setBackground(Color.white);
-			    }
-			});
-			op3.addMouseListener(new java.awt.event.MouseAdapter() {
-			    public void mouseEntered(java.awt.event.MouseEvent evt) {
-			        op3.setBackground(Color.pink);
-			    }
-
-			    public void mouseExited(java.awt.event.MouseEvent evt) {
-			        op3.setBackground(Color.white);
-			    }
-			});
-			op4.addMouseListener(new java.awt.event.MouseAdapter() {
-			    public void mouseEntered(java.awt.event.MouseEvent evt) {
-			        op4.setBackground(Color.pink);
-			    }
-
-			    public void mouseExited(java.awt.event.MouseEvent evt) {
-			        op4.setBackground(Color.white);
-			    }
-			});
+			op1.addMouseListener(new HoverEffect(3));
+			op2.addMouseListener(new HoverEffect(4));
+			op3.addMouseListener(new HoverEffect(5));
+			op4.addMouseListener(new HoverEffect(6));
+			    
 
 			
 		}
@@ -460,16 +421,16 @@ public class NumberQuizGame extends JFrame
 		//Creating exit window display
 
 		exit_message_1=new JLabel("Thanks for Playing.");
-		exit_message_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		exit_message_1.setFont(new Font("", Font.BOLD, 20));
 		exit_message_1.setForeground(Color.white);
 		
 		exit_message_2=new JLabel("Come back again We love you !!");
-		exit_message_2.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		exit_message_2.setFont(new Font("", Font.BOLD, 20));
 		exit_message_2.setForeground(Color.white);
 
 		exit_button=new JButton("QUIT");
 		exit_button.setBackground(new Color(102,0,10));
-		exit_button.setFont(new Font("Times new Roman",Font.BOLD,25));
+		exit_button.setFont(new Font("",Font.BOLD,25));
 		exit_button.setForeground(Color.white);
 		
 		exit_message_1.setBounds(147,160,300,25);
@@ -496,18 +457,78 @@ public class NumberQuizGame extends JFrame
 		});
 
 		//Adding hover effect on exit button
-		exit_button.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		        exit_button.setBackground(new Color(17,97,0));
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		        exit_button.setBackground(new Color(102,0,10));
-		    }
-		});
+		exit_button.addMouseListener(new HoverEffect(2));
+		  
 
 	}
-	
+
+
+	/*   this class will handle the hover on buttons */
+	private class HoverEffect  extends MouseAdapter
+	{
+		int btn_no;
+	    HoverEffect(int btn_no)
+		{
+			this.btn_no=btn_no;
+		}
+		public void mouseEntered(MouseEvent evt)
+		{
+				switch(btn_no)
+				{
+					//start button hover effect
+					case 1:
+					    start_button.setBackground(new Color(17,97,0));
+			        break;
+					//exit button hover effect
+					case 2:	
+				        exit_button.setBackground(new Color(17,97,0));
+			    	break;    
+
+			    	//hover effect on option button 
+			    	case 3:
+			    		op1.setBackground(Color.pink);
+			    	break;
+			    	case 4:
+			    		op2.setBackground(Color.pink);
+			    	break;
+			    	case 5:
+			    		op3.setBackground(Color.pink);
+			    	break;
+			    	case 6:
+			    		op4.setBackground(Color.pink);
+			    	break;
+
+				}
+		}
+		public void mouseExited(MouseEvent evt)
+		{
+				switch(btn_no)
+				{
+					//start button hover effect
+					case 1:
+					     start_button.setBackground(new Color(102,0,10));
+					break;
+					
+					//exit button hover effect
+					case 2:	
+						 exit_button.setBackground(new Color(102,0,10));
+					break;    
+
+					case 3:
+						op1.setBackground(Color.white);
+					break;
+					case 4:
+						op2.setBackground(Color.white);
+					break;
+					case 5:
+						op3.setBackground(Color.white);
+					break;
+					case 6:
+						op4.setBackground(Color.white);
+					break;
+				}
+		}		   
+	}
 
 	public static void main(String args[])
 	{
