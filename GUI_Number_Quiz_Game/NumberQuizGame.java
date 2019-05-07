@@ -11,62 +11,77 @@
     Instruction.
 		Main Class name is NumberQuizGame
 		which is used to run the program after compiling
-
+	
+	About:
+		In this game you have to solve a Mathematic equation and choose the correct answer from the given option 
+		if you give the correct answer then in time then your score will increase by 1
+		and you will get another equation to solve.
+		when you give the wrong answer the game is over
+		
 
 */
 
 //importing module
 import javax.swing.*; 
-import java.awt.event.*;  //used for event handling
-import java.util.Random; //used to take random value
+import java.awt.event.*;     //used for event handling
+import java.util.Random;     //used to take random value
 import java.awt.*;
+import javax.swing.Timer;	 //used for timer or hold the program
+ 
 
-
-public class NumberQuizGame extends JFrame implements ActionListener
+public class NumberQuizGame extends JFrame
 {	
 	/*global declaration of variable for this class*/
-	JLabel game_name;                     	   //represent name of game
+	Timer countdown,hold_program;			   //used to set the countdown and hold the program
 	JLabel user_guide_1,user_guide_2;    	   //represent instruction at the starting display
 	JLabel copy_right;                     	   //represent copyright message on frame
 	JLabel exit_message_1,exit_message_2;	   //represent message at the last display
 	JButton start_button,exit_button;      	   //represent button on first and last display
 	JLabel user_guide;          	           //represent instruction on second display
+	JLabel timer_text,timer_value;			   //represent the timer on screen
 	JLabel score;							   //represent score Label
 	JButton var_1,var_2,sign,equal,ques_mark;  //represent equation
 	JButton op1,op2,op3,op4;  				   //represent options
  	int correct_op;							   //represent correct option
 	int current_score=0;					   //represent current score
-
+	JLabel frame_background;				   //represent the Frame Background
 	
 
-	NumberQuizGame()
-	{
-
-	}
-
+	
 	//this contructor will create the JFrame
 	NumberQuizGame(String title)
 	{
 		super(title);   //setting title by calling JFrame class constructor
+
+		//Setting Background Image
+		ImageIcon img=new ImageIcon("Background_img.jpg"); 		 //Locating Image 
+		frame_background=new JLabel(img);
+		frame_background.setBounds(0,0,500,470);	 //setting background image size
+		add(frame_background);
+		setLayout(null);
+		frame_background.setLayout(null);
 	}
 
 	/*first user Interacting display or beginning of game*/
-	public void setComponent()
+	public void first_display()
 	{
 		
 		/*setting text on components*/
 		
-		game_name=new JLabel("Number Game");
-		game_name.setFont(new Font("CALIBARIAN", Font.BOLD, 30));
-		game_name.setForeground(Color.red);
-
 		user_guide_1=new JLabel("Get Ready To Jog your Brain. All the Best !!");
+		user_guide_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		user_guide_1.setForeground(Color.white);
 
-		user_guide_2=new JLabel("Click The Start Button");
+		user_guide_2=new JLabel("Click The Play Button");
+		user_guide_2.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		user_guide_2.setForeground(Color.white);
 
-		start_button=new JButton("START GAME");
+		start_button=new JButton("PLAY");
+		start_button.setBackground(new Color(102,0,10));
+		start_button.setForeground(Color.white);
+		start_button.setFont(new Font("algerian",Font.BOLD,30));
+		start_button.setBorder(BorderFactory.createBevelBorder(0));
+		 
 
 		copy_right=new JLabel("© 2019 BLARE GROUP(www.blaregroup.com)");
 		copy_right.setForeground(Color.white);
@@ -74,86 +89,163 @@ public class NumberQuizGame extends JFrame implements ActionListener
 		
 		setLayout(null); //setting layout to null so that we give our own layout
 
+	
 		/*Setting position of components*/
-		game_name.setBounds(130,30,300,30); 
-		user_guide_1.setBounds(100,100,350,20);
-		user_guide_2.setBounds(170,130,300,20);
-		start_button.setBounds(120,210,250,50);
-		copy_right.setBounds(130,340,300,20);
+		user_guide_1.setBounds(75,145,400,25);
+		user_guide_2.setBounds(132,175,360,25);
+		start_button.setBounds(147,265,200,50);
+		copy_right.setBounds(135,410,300,20);
 
+	
 		/*adding components to frame*/
-		add(game_name);	
-		add(start_button);
-		add(user_guide_1);
-		add(user_guide_2);
-		add(copy_right);
+		frame_background.add(start_button);
+		frame_background.add(user_guide_1);
+		frame_background.add(user_guide_2);
+		frame_background.add(copy_right);
 		
-		//event handling on start button this will call  actionperformed method of this class
-		// which is override of method of ActionListener interface
-		start_button.addActionListener(this);
+		//event handling on start button this will call  actionperformed method of second_display class
+		start_button.addActionListener(new second_display());
+		
+		//Adding hover effect on start button
+		start_button.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        start_button.setBackground(new Color(17,97,0));
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        start_button.setBackground(new Color(102,0,10));
+		    }
+		});
+
 	}
 
-	/*this method is used to handle event after clicking Start button  and it is second user Interacting display*/
-	public void actionPerformed(ActionEvent e)
-	{	
-		/*setting visibility of preloaded component false*/
-		
-		start_button.setVisible(false);
-		user_guide_1.setVisible(false);
-		user_guide_2.setVisible(false);
+	/*this class is used to handle event after clicking Start button  and it will create second user Interacting display*/
+	private class second_display implements ActionListener
+	{
 
-		
-		/*setting new components*/
-		user_guide=new JLabel("Choose the right answer");
-		user_guide.setForeground(Color.white);
-
-		score=new JLabel();
-		score.setForeground(Color.red);
-
-		var_1=new JButton();
-		var_2=new JButton();
-		sign=new JButton();
-		equal=new JButton("=");
-		ques_mark=new JButton("?");
-		op1=new JButton();
-		op2=new JButton();
-		op3=new JButton();
-		op4=new JButton();
-		
-		setLayout(null);
+		public void actionPerformed(ActionEvent e)
+		{	
+			/*setting visibility of preloaded component false*/
 			
-		/*setting position*/
-		var_1.setBounds(110,90,50,50);
-		sign.setBounds(165,90,50,50);
-		var_2.setBounds(220,90,50,50);
-		equal.setBounds(275,90,50,50);
-		ques_mark.setBounds(330,90,50,50);
-		user_guide.setBounds(160,160,200,20);
-		op1.setBounds(122,190,68,50);
-		op2.setBounds(182,190,68,50);
-		op3.setBounds(242,190,68,50);
-		op4.setBounds(302,190,68,50);
-		score.setBounds(195,270,150,20);
-		/*Adding component*/
-		add(user_guide);
-		add(var_1);
-		add(var_2);
-		add(sign);
-		add(ques_mark);
-		add(equal);
-		add(op1);
-		add(op2);
-		add(op3);
-		add(op4);
-		add(score);
-		repeat();         //funcition for setting value in buttons 
-		condition_test(); //checking option entered by user correct or not
+			start_button.setVisible(false);
+			user_guide_1.setVisible(false);
+			user_guide_2.setVisible(false);
+
+			
+			/*setting new components*/
+			user_guide=new JLabel("Choose the right answer");
+			user_guide.setFont(new Font("algerian",Font.BOLD,20));
+			user_guide.setForeground(Color.white);
+
+			timer_text=new JLabel("Time Left");
+			timer_text.setForeground(Color.white);
+			timer_text.setFont(new Font("algerian",Font.BOLD,20));
+
+			timer_value=new JLabel();
+			timer_value.setForeground(Color.red);
+			timer_value.setFont(new Font("algerian",Font.BOLD,25));
+
+			score=new JLabel();
+			score.setFont(new Font("algerian",Font.BOLD,20));
+			score.setForeground(Color.red);
+
+			var_1=new JButton();
+			var_2=new JButton();
+			sign=new JButton();
+			equal=new JButton("=");
+			ques_mark=new JButton("?");
+			op1=new JButton();
+			op2=new JButton();
+			op3=new JButton();
+			op4=new JButton();
+			
+			setLayout(null);
+				
+			/*setting position*/
+			var_1.setBounds(110,135,60,50);
+			sign.setBounds(165,135,60,50);
+			var_2.setBounds(220,135,60,50);
+			equal.setBounds(275,135,60,50);
+			ques_mark.setBounds(330,135,60,50);
+			user_guide.setBounds(115,205,300,20);
+			op1.setBounds(112,245,68,50);
+			op2.setBounds(181,245,68,50);
+			op3.setBounds(249,245,68,50);
+			op4.setBounds(317,245,68,50);
+			timer_text.setBounds(195,303,200,30);
+			timer_value.setBounds(230,337,100,30);
+			score.setBounds(192,380,150,20);
+
 		
-		
+			/*Adding component*/
+			frame_background.add(user_guide);
+			frame_background.add(var_1);
+			frame_background.add(var_2);
+			frame_background.add(sign);
+			frame_background.add(ques_mark);
+			frame_background.add(equal);
+			frame_background.add(op1);
+			frame_background.add(op2);
+			frame_background.add(op3);
+			frame_background.add(op4);
+			frame_background.add(timer_text);
+			frame_background.add(timer_value);
+			frame_background.add(score);
+			
+			set_value();         //funcition for setting value in buttons 
+			
+			/*Event handling when user click on any of the option button*/
+			op1.addActionListener(new option_clickhandle(1));
+			op2.addActionListener(new option_clickhandle(2));
+			op3.addActionListener(new option_clickhandle(3));
+			op4.addActionListener(new option_clickhandle(4));
+						
+
+			/*	mouse over effect on options	*/	
+
+			op1.addMouseListener(new java.awt.event.MouseAdapter() {
+			    public void mouseEntered(java.awt.event.MouseEvent evt) {
+			        op1.setBackground(Color.pink);
+			    }
+
+			    public void mouseExited(java.awt.event.MouseEvent evt) {
+			        op1.setBackground(Color.white);
+			    }
+			});
+			op2.addMouseListener(new java.awt.event.MouseAdapter() {
+			    public void mouseEntered(java.awt.event.MouseEvent evt) {
+			        op2.setBackground(Color.pink);
+			    }
+
+			    public void mouseExited(java.awt.event.MouseEvent evt) {
+			        op2.setBackground(Color.white);
+			    }
+			});
+			op3.addMouseListener(new java.awt.event.MouseAdapter() {
+			    public void mouseEntered(java.awt.event.MouseEvent evt) {
+			        op3.setBackground(Color.pink);
+			    }
+
+			    public void mouseExited(java.awt.event.MouseEvent evt) {
+			        op3.setBackground(Color.white);
+			    }
+			});
+			op4.addMouseListener(new java.awt.event.MouseAdapter() {
+			    public void mouseEntered(java.awt.event.MouseEvent evt) {
+			        op4.setBackground(Color.pink);
+			    }
+
+			    public void mouseExited(java.awt.event.MouseEvent evt) {
+			        op4.setBackground(Color.white);
+			    }
+			});
+
+			
+		}
 	}
 
 	/*this method is used  for changing the value after correct answer or put the initial value  */
-	public void repeat()
+	public void set_value()
 	{	
 		current_score++; //increase the score after correct option
 
@@ -169,10 +261,10 @@ public class NumberQuizGame extends JFrame implements ActionListener
 		int c=calculation(a,b,sign_1);                //getting answer in int form 
 		String ans=new String(Integer.toString(c));   //converting answer from int to string 
 
-		/*this is used for creating other option that to be put on op button */
+		/*this is used for creating other option value  that to be put on op button */
 		String  op_val1=new String(Integer.toString(c+10));
 		String  op_val2=new String(Integer.toString(c-10));
-		String  op_val3=new String(Integer.toString(c*2));
+		String  op_val3=new String(Integer.toString(c+2));
 
 		correct_op=option();    //getting the postion of op button in which correct option is displayed
 		
@@ -185,12 +277,31 @@ public class NumberQuizGame extends JFrame implements ActionListener
 			case 4:op4.setText(ans);op2.setText(op_val1);op3.setText(op_val3);op1.setText(op_val2);
 		}
 
-		//putting score 
-		score.setText("Score = "+Integer.toString(current_score-1));
-		var_1.setText(v1);     //putting value in var_1
-		var_2.setText(v2);	   //putting value in var_2	
-		sign.setText(sign_1);  //putting value in sign button
+		score.setText("Score = "+Integer.toString(current_score-1)); //Display  score 
+		
+		//creating timer
+		countdown=new Timer(1000,new ActionListener()
+			{	int st=6;  //timer start no.
+				public void actionPerformed(ActionEvent e)
+				{
+					st--;
+					if(st>=0){timer_value.setText(Integer.toString(st));}
+					else
+					{	countdown.stop();
+						int a=JOptionPane.showConfirmDialog(null,"Time Over \n Your Score = "+(current_score-1)+"\n Do you want to play again");
+						if(a==JOptionPane.YES_OPTION){restart();first_display();}
+						else { exit_display();}
+					}
+				}
+			});
+
+		countdown.start(); 		   //starting countdown
+		var_1.setText(v1);     	   //putting value in var_1
+		var_2.setText(v2);	       //putting value in var_2	
+		sign.setText(sign_1);  	   //putting value in sign button
+
 	}
+
 
 	/*this method is used to set the random value in var_1 button*/
 	public int ran_number1()
@@ -243,7 +354,7 @@ public class NumberQuizGame extends JFrame implements ActionListener
 	}
 
 	
-	//	this method will return the option which contain the correct option	
+	//	this method will return the option which contain the correct option	randomly
 	public int option()
 	{
 		Random rand=new Random();
@@ -254,77 +365,66 @@ public class NumberQuizGame extends JFrame implements ActionListener
 
 	}
 
-	//this method is used to handle the user response on clicking the option
-	//it will check clicked option is correct or not and perform acction accordingly
-	public void condition_test()
-	{		
-		JFrame f1=new JFrame("Number Game"); //for dialog box 
-			
-		//option 1 button handling
-			
-		op1.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				
-				if(correct_op==1){ repeat(); }
+	/*this class is used to handle the user response on clicking the option button
+	   it will check clicked option is correct or not and perform action accordingly*/
+	private class option_clickhandle implements ActionListener
+	{	
+		int op_number;  //represent option number of user choice
+
+		//this constructor will put the value in op_choice variable of class
+		option_clickhandle(int op_number)
+		{
+			this.op_number=op_number;
+		}
+
+		public void actionPerformed(ActionEvent e)
+			{	
+				countdown.stop(); //stoping timer
+				switch(correct_op)
+				 		{
+				 			case 1:op1.setBackground(Color.green);op1.setForeground(Color.white);break;
+				 			case 2:op2.setBackground(Color.green);op2.setForeground(Color.white);break;
+				 			case 3:op3.setBackground(Color.green);op3.setForeground(Color.white);break;
+				 			case 4:op4.setBackground(Color.green);op4.setForeground(Color.white);break;
+				 		}
+
+				if(correct_op==op_number){
+					
+					
+				 	hold_program=new Timer(1200,new ActionListener()
+							{	
+								public void actionPerformed(ActionEvent e)
+								{
+									op1.setBackground(Color.white);op1.setForeground(Color.black);
+									op2.setBackground(Color.white);op2.setForeground(Color.black);
+									op3.setBackground(Color.white);op3.setForeground(Color.black);
+									op4.setBackground(Color.white);op4.setForeground(Color.black);
+									set_value();			
+									hold_program.stop();								
+								}
+							});
+				 	hold_program.start();	
+
+				  }
 				else
 			    {			
-					int a=JOptionPane.showConfirmDialog(f1,"Game Over \n Your Score = "+(current_score-1)+"\n Do you want to play again");
-					if(a==JOptionPane.YES_OPTION){restart();setComponent();}
-					else { close();}
-				}
-			}
-			
-		});
+			    	switch(op_number)
+				 		{
+				 			case 1:op1.setBackground(Color.red);op1.setForeground(Color.white);break;
+				 			case 2:op2.setBackground(Color.red);op2.setForeground(Color.white);break;
+				 			case 3:op3.setBackground(Color.red);op3.setForeground(Color.white);break;
+				 			case 4:op4.setBackground(Color.red);op4.setForeground(Color.white);break;
+				 		}
 
-		//option 2 button handling
-		op2.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				if(correct_op==2){repeat();}
-				else 
-				{
-					int a=JOptionPane.showConfirmDialog(f1,"Game Over \n Your Score = "+(current_score-1)+"\n Do you want to play again");
-					if(a==JOptionPane.YES_OPTION){restart();setComponent();}
-					else { close();}
+					int a=JOptionPane.showConfirmDialog(null,"Game Over \n Your Score = "+(current_score-1)+"\n Do you want to play again");
+					if(a==JOptionPane.YES_OPTION){restart();first_display();}
+					else { exit_display();}
 				}
 			}
-				
-		});
 
-		//option 3 button handling
-		op3.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-		
-				if(correct_op==3){repeat();}
-				else
-				{
-					int a=JOptionPane.showConfirmDialog(f1,"Game Over \n Your Score = "+(current_score-1)+"\n Do you want to play again");
-					if(a==JOptionPane.YES_OPTION){restart();setComponent();}
-					else { close();}
-				}
-			}
-				
-		});
 
-		//option 4 button handling
-		op4.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-		
-				if(correct_op==4){repeat();}
-				else 
-				{
-					int a=JOptionPane.showConfirmDialog(f1,"Game Over \n Your Score = "+(current_score-1)+"\n Do you want to play again");
-					if(a==JOptionPane.YES_OPTION){restart();setComponent();}
-					else { close();}
-				}
-			}
-				
-		});
 	}
-
+	
 	//  this function is used to restart the game by making the component invisible
 	//       so that new components can be loaded on frame
 	public void restart()
@@ -346,31 +446,40 @@ public class NumberQuizGame extends JFrame implements ActionListener
 		user_guide_1.setVisible(false);		 	
 		user_guide_2.setVisible(false);
 		start_button.setVisible(false);
+		timer_value.setVisible(false);
+		timer_text.setVisible(false);
+		
 
 	}
 
 	/*this function is used to create third display means exit application display*/
-	public void close()
+	public void exit_display()
 	{
 		restart();      //here this method is used to make the all component invisible
 		
 		//Creating exit window display
 
 		exit_message_1=new JLabel("Thanks for Playing.");
+		exit_message_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		exit_message_1.setForeground(Color.white);
 		
 		exit_message_2=new JLabel("Come back again We love you !!");
+		exit_message_2.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		exit_message_2.setForeground(Color.white);
 
-		exit_button=new JButton("EXIT");
+		exit_button=new JButton("QUIT");
+		exit_button.setBackground(new Color(102,0,10));
+		exit_button.setFont(new Font("Times new Roman",Font.BOLD,25));
+		exit_button.setForeground(Color.white);
 		
-		exit_message_1.setBounds(177,120,200,20);
-		exit_message_2.setBounds(137,150,250,20);
-		exit_button.setBounds(170,200,150,50);
+		exit_message_1.setBounds(147,160,300,25);
+		exit_message_2.setBounds(80,190,400,25);
+		exit_button.setBounds(170,270,150,50);
+		exit_button.setBorder(BorderFactory.createBevelBorder(0));
 		
-		add(exit_message_1);
-		add(exit_message_2);
-		add(exit_button);
+		frame_background.add(exit_message_1);
+		frame_background.add(exit_message_2);
+		frame_background.add(exit_button);
 		
 		exit_message_1.setVisible(true);
 		exit_message_2.setVisible(true);
@@ -386,6 +495,17 @@ public class NumberQuizGame extends JFrame implements ActionListener
 				
 		});
 
+		//Adding hover effect on exit button
+		exit_button.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        exit_button.setBackground(new Color(17,97,0));
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        exit_button.setBackground(new Color(102,0,10));
+		    }
+		});
+
 	}
 	
 
@@ -394,9 +514,11 @@ public class NumberQuizGame extends JFrame implements ActionListener
 	
 		NumberQuizGame f=new NumberQuizGame("Number Game");      //creating object and call the parameterized constructor
 		
-		f.setSize(500,400);                     //set size of JFrame
+		f.setSize(500,470);                     //set size of JFrame
 		f.setVisible(true);                     //setting Visibility of Frame
-		f.setComponent();                       //setting components of first display
+		f.first_display();                       //creating first display or start of game
+
+		
 
 		f.getContentPane().setBackground(Color.black);	  //color the Background for JFrame		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //allowing to close the application by click close button
