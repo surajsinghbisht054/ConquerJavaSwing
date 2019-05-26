@@ -1,7 +1,9 @@
-package CodeRail;
+//package CodeRail;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java .awt.*;
+//import java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
 class AddMenuBar extends JMenuBar {
 	// menu items
@@ -42,7 +44,10 @@ class AddMenuBar extends JMenuBar {
 
 	// menu font
 	public JMenuItem menu_font_wordwrap;
-	public JMenuItem menu_font_font;
+	public JMenu menu_font_font;
+	public JMenuItem menu_font_font_size_large;
+	public JMenuItem menu_font_font_size_medium;
+	public JMenuItem menu_font_font_size_small;
 
 	// menu help
 	public JMenuItem menu_help_topic;
@@ -62,6 +67,13 @@ class AddMenuBar extends JMenuBar {
 		menu_font = new JMenu("View");
 		menu_help = new JMenu("Help");
 
+
+		//add Mnemonic to menu (used with alt key)
+		menu_file.setMnemonic('F');
+		menu_edit.setMnemonic('E');
+		menu_view.setMnemonic('M');
+		menu_font.setMnemonic('V');
+		menu_help.setMnemonic('H');
 
 		// Menu Item Created
 		menu_file_open 	= new JMenuItem("Open");
@@ -93,7 +105,11 @@ class AddMenuBar extends JMenuBar {
 
 		// menu font
 		menu_font_wordwrap  = new JMenuItem("Word wrap");
-		menu_font_font 		= new JMenuItem("Font");
+		menu_font_font 		= new JMenu("Font");
+		//sub menus of font_font menu
+		menu_font_font_size_large =new JMenuItem("Large");
+		menu_font_font_size_medium =new JMenuItem("Medium");
+		menu_font_font_size_small =new JMenuItem("Small");
 
 		// menu help
 		menu_help_topic = new JMenuItem("Topic");
@@ -101,12 +117,41 @@ class AddMenuBar extends JMenuBar {
 
 
 
+		//adding shortcut keys to menu items
+		// Menu Item Shotcut keys
+		menu_file_open.setAccelerator(KeyStroke.getKeyStroke('O',ActionEvent.CTRL_MASK));
+		menu_file_new.setAccelerator(KeyStroke.getKeyStroke('N',ActionEvent.CTRL_MASK));
+		menu_file_save.setAccelerator(KeyStroke.getKeyStroke('S',ActionEvent.CTRL_MASK));
+		menu_file_saveas.setAccelerator(KeyStroke.getKeyStroke('N',ActionEvent.CTRL_MASK));
+		menu_file_print.setAccelerator(KeyStroke.getKeyStroke('P',ActionEvent.CTRL_MASK));
+		menu_file_exit.setAccelerator(KeyStroke.getKeyStroke('E',ActionEvent.CTRL_MASK));
+		
+		
+		// menu edit shortcut keys
+		menu_edit_undo.setAccelerator(KeyStroke.getKeyStroke('Z',ActionEvent.CTRL_MASK));
+		menu_edit_redo.setAccelerator(KeyStroke.getKeyStroke('Y',ActionEvent.CTRL_MASK));
+		menu_edit_cut.setAccelerator(KeyStroke.getKeyStroke('X',ActionEvent.CTRL_MASK));
+		menu_edit_copy.setAccelerator(KeyStroke.getKeyStroke('C',ActionEvent.CTRL_MASK));
+	 	menu_edit_paste.setAccelerator(KeyStroke.getKeyStroke('V',ActionEvent.CTRL_MASK));
+		menu_edit_selectall.setAccelerator(KeyStroke.getKeyStroke('A',ActionEvent.CTRL_MASK));
+		menu_edit_find.setAccelerator(KeyStroke.getKeyStroke('F',ActionEvent.CTRL_MASK));
+		menu_edit_replace.setAccelerator(KeyStroke.getKeyStroke('H',ActionEvent.CTRL_MASK));
+		menu_edit_goto.setAccelerator(KeyStroke.getKeyStroke('G',ActionEvent.CTRL_MASK));
 
+		//menuitem font shortcut keys
+		menu_font_font_size_large.setAccelerator(KeyStroke.getKeyStroke('L',ActionEvent.CTRL_MASK));
+		menu_font_font_size_medium.setAccelerator(KeyStroke.getKeyStroke('M',ActionEvent.CTRL_MASK));
+		menu_font_font_size_small.setAccelerator(KeyStroke.getKeyStroke('S',ActionEvent.CTRL_MASK));
+
+
+		//menu file
 		menu_file.add(menu_file_open );
 		menu_file.add(menu_file_new);
+		menu_file.addSeparator();
 		menu_file.add(menu_file_save);
 		menu_file.add(menu_file_saveas);
 		menu_file.add(menu_file_print);
+		menu_file.addSeparator();
 		menu_file.add(menu_file_exit);
 	
 
@@ -132,7 +177,11 @@ class AddMenuBar extends JMenuBar {
 
 		// menu font
 		menu_font.add(menu_font_wordwrap);
+		menu_font_font.add(menu_font_font_size_large);
+		menu_font_font.add(menu_font_font_size_medium);
+		menu_font_font.add(menu_font_font_size_small);
 		menu_font.add(menu_font_font);
+
 
 		// menu help
 		menu_help.add(menu_help_topic);
@@ -147,6 +196,13 @@ class AddMenuBar extends JMenuBar {
 		add(menu_view);
 		add(menu_font);
 		add(menu_help);
+
+		//adding color menu 
+		menu_file.setForeground(Color.white);
+		menu_edit.setForeground(Color.white);
+		menu_view.setForeground(Color.white);
+		menu_font.setForeground(Color.white);
+		menu_help.setForeground(Color.white);
 	}
 
 	

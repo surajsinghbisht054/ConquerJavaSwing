@@ -1,10 +1,10 @@
-import CodeRail.*;
+//package CodeRail;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.undo.*;
 import java.awt.event.*;
-
-
+import java.awt.*;
+import javax.swing.UIManager;
 
 
 
@@ -15,34 +15,40 @@ class CombinedControls extends JFrame implements ActionListener {
 	private UndoManager manager; 
 
 	CombinedControls(){
-		super("Test Object");
+		super("CodeRail Text");
 
 		// Window Configuration
 
 		//obj1.setExtendedState(JFrame.MAXIMIZED_BOTH);		
-		setSize(300, 400);
+		setSize(1000, 700);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setVisible(true);
 		setFocusable(true);
 		
 
 		// Create TextArea Object
-		obj = new editor(200, 300);
+		obj = new editor(900, 700);
 
 		manager = new UndoManager();
 		obj.getDocument().addUndoableEditListener(manager);
 
-
+		//pack();
+		
 		// Create Menu Bar Object
 		menu = new AddMenuBar();
 		//System.out.println((ActionListener)this);
 		//menu.registerListener(this);
+		
+		//setting backgound color of menu bar
+		menu.setBackground(Color.black);
+
 
 		// Add Object
 		add(menu);
 		add(obj);
 		setJMenuBar(menu);  
 		registerListener();
+		setVisible(true);
 
 	}
 	public void registerListener(){
@@ -78,6 +84,9 @@ class CombinedControls extends JFrame implements ActionListener {
 		// menu font
 		menu.menu_font_wordwrap.addActionListener(this);
 		menu.menu_font_font.addActionListener(this);
+		menu.menu_font_font_size_large.addActionListener(this);
+		menu.menu_font_font_size_medium.addActionListener(this);
+		menu.menu_font_font_size_small.addActionListener(this);
 
 		// menu help
 		menu.menu_help_topic.addActionListener(this);
@@ -179,6 +188,16 @@ class CombinedControls extends JFrame implements ActionListener {
 		// menu font
 		else if (e.getSource()==menu.menu_font_wordwrap){}
 		else if (e.getSource()==menu.menu_font_font){}
+		else if (e.getSource()==menu.menu_font_font_size_large){
+			
+			obj.setFont(new Font("",Font.BOLD,30));   
+		}
+		else if (e.getSource()==menu.menu_font_font_size_medium){
+			obj.setFont(new Font("",Font.BOLD,20));
+		}
+		else if (e.getSource()==menu.menu_font_font_size_small){
+			obj.setFont(new Font("",Font.BOLD,13));
+		}
 
 		// menu help
 		else if (e.getSource()==menu.menu_help_topic){}
@@ -196,6 +215,7 @@ class setup{
 	public static void main(String[] args){
 		CombinedControls obj = new CombinedControls();
 		System.out.println("SETUP");
+
 	}
 
 }

@@ -1,9 +1,10 @@
-package CodeRail;
+//package CodeRail;
 
 // import modules
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import java.awt.*;
 
 
 // editor class name
@@ -15,6 +16,10 @@ public class editor extends JTextArea implements DocumentListener {
 		// Configurations
 		setVisible(true);
 		setFocusable(true);
+	
+		//setBackground(Color.blue);
+		//setForeground(Color.white);
+		//setFont(new Font("",Font.BOLD,25));
 		getDocument().addDocumentListener(this);
 	}
 
@@ -53,7 +58,7 @@ public class editor extends JTextArea implements DocumentListener {
 	public static void main(String[] args){
 		
 		// Create Window Frame
-		JFrame obj1 = new JFrame("Test Object");
+		JFrame obj1 = new JFrame("CodeRail Text");
 
 		// Window Configuration
 		//obj1.setExtendedState(JFrame.MAXIMIZED_BOTH);
