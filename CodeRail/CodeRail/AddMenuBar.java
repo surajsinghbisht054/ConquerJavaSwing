@@ -1,11 +1,27 @@
-//package CodeRail;
+package CodeRail;
 
+/*
+================================================================================
+						Project CodeRail
+================================================================================
+
+	Author:
+			Suraj Singh Bisht
+			surajsinghbisht054@gmail.com
+
+
+			himanshu sharma
+*/
+
+
+// import modules
 import javax.swing.*;
 import java.awt.event.*;
 import java .awt.*;
-//import java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
-class AddMenuBar extends JMenuBar {
+
+// AddMenuBar Class
+public class AddMenuBar extends JMenuBar {
 	// menu items
 	private JMenu menu_file;
 	private JMenu menu_edit;
@@ -54,7 +70,7 @@ class AddMenuBar extends JMenuBar {
 	public JMenuItem menu_help_about;
 
 	// Constructor
-	AddMenuBar(){
+	public AddMenuBar(){
 		initUI();
 	}
 

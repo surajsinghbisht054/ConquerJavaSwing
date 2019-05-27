@@ -1,4 +1,18 @@
-//package CodeRail;
+package CodeRail;
+
+/*
+================================================================================
+						Project CodeRail
+================================================================================
+
+	Author:
+			Suraj Singh Bisht
+			surajsinghbisht054@gmail.com
+
+
+			himanshu sharma
+*/
+
 
 // import modules
 import javax.swing.*;
@@ -27,9 +41,14 @@ public class editor extends JTextArea implements DocumentListener {
 	public void changedUpdate(DocumentEvent doc){
 
 	}
+
+	//
 	public void removeUpdate(DocumentEvent doc){
 	
+	
 	}
+	
+	//
 	public void insertUpdate(DocumentEvent doc){
 	}
 
