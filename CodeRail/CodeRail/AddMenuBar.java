@@ -57,6 +57,10 @@ public class AddMenuBar extends JMenuBar {
 	public JMenuItem menu_view_foreground;
 	public JMenuItem menu_view_background;
 	public JMenuItem menu_view_statusbar;
+	public JMenu menu_view_theme;
+	public JMenuItem menu_view_theme_black;
+	public JMenuItem menu_view_theme_white;
+	public JMenuItem menu_view_theme_blue;
 
 	// menu font
 	public JMenuItem menu_font_wordwrap;
@@ -118,6 +122,10 @@ public class AddMenuBar extends JMenuBar {
 	 	menu_view_foreground = new JMenuItem("Foreground");
 	 	menu_view_background = new JMenuItem("Background");
 	 	menu_view_statusbar  = new JMenuItem("StatusBar");
+	 	menu_view_theme =new JMenu("Theme");
+	 	menu_view_theme_black =new JMenuItem("Black Theme");
+	 	menu_view_theme_white =new JMenuItem("White Theme");
+	 	menu_view_theme_blue =new JMenuItem("Blue Theme");
 
 		// menu font
 		menu_font_wordwrap  = new JMenuItem("Word wrap");
@@ -189,6 +197,10 @@ public class AddMenuBar extends JMenuBar {
 	 	menu_view.add(menu_view_foreground);
 	 	menu_view.add(menu_view_background);
 	 	menu_view.add(menu_view_statusbar);
+	 	menu_view.add(menu_view_theme);
+	 	menu_view_theme.add(menu_view_theme_black);
+	 	menu_view_theme.add(menu_view_theme_blue);
+	 	menu_view_theme.add(menu_view_theme_white);
 
 
 		// menu font
@@ -219,6 +231,18 @@ public class AddMenuBar extends JMenuBar {
 		menu_view.setForeground(Color.white);
 		menu_font.setForeground(Color.white);
 		menu_help.setForeground(Color.white);
+
+		//adding color to thme menu
+		menu_view_theme_black.setPreferredSize(new Dimension(200,30));
+		menu_view_theme_blue.setPreferredSize(new Dimension(200,30));
+		menu_view_theme_white.setPreferredSize(new Dimension(200,30));
+		menu_view_theme_black.setBackground(new Color(40,41,35));
+		menu_view_theme_black.setForeground(Color.white);
+		menu_view_theme_blue.setBackground(new Color(0,27,51));
+		menu_view_theme_blue.setForeground(Color.white);
+		menu_view_theme_white.setBackground(Color.white);
+		menu_view_theme_white.setForeground(Color.black);
+
 	}
 
 	

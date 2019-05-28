@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.UIManager;
 import CodeRail.*;
+import java.io.*;
 
 
 /*
@@ -18,7 +19,8 @@ import CodeRail.*;
 			surajsinghbisht054@gmail.com
 
 
-			himanshu sharma
+			Himanshu Sharma
+			himanshusharma2972@gmail.com
 
 ================================================================================
 								README
@@ -49,11 +51,12 @@ class CombinedControls extends JFrame implements ActionListener {
 				Configurations Settings
 
 	*/
+		
 	private static final String window_name = "CodeRail Text Editor";
-	private static final int window_width = 1000;
-	private static final int window_height = 700;
-	private static final int editor_width = 900;
-	private static final int editor_height = 700;
+	private static final int window_width = 900;
+	private static final int window_height = 500;
+	private static final int editor_width = 0;
+	private static final int editor_height = 0;
 
 
 
@@ -73,10 +76,20 @@ class CombinedControls extends JFrame implements ActionListener {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setVisible(true);
 		setFocusable(true);
-		
+		setExtendedState(JFrame.MAXIMIZED_BOTH);   //for opening window on full screen
 
 		// Create TextArea Object [CodeRail.editor]
 		obj = new editor(editor_width, editor_height);
+		
+		//Adding scroll bar to textarea 
+		//In this we pass obj(object of editor class) as argument so we have to add scroll instead of scroll
+		JScrollPane scroll=new JScrollPane(obj, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		//config scroll bar		
+		scroll.getVerticalScrollBar().setBackground(new Color(0,27,51));
+		scroll.getHorizontalScrollBar().setBackground(new Color(0,27,51)); 
+		scroll.getVerticalScrollBar().setForeground(Color.white);
+		scroll.getHorizontalScrollBar().setForeground(Color.white); 
 
 		// Undo manager to track change and undo changes
 		manager = new UndoManager();
@@ -92,7 +105,7 @@ class CombinedControls extends JFrame implements ActionListener {
 
 		// Add Object
 		add(menu);
-		add(obj);
+		add(scroll);   //here we add scroll because scroll included obj 
 		setJMenuBar(menu);  
 		setVisible(true);
 
@@ -144,6 +157,10 @@ class CombinedControls extends JFrame implements ActionListener {
 		menu.menu_view_foreground.addActionListener(this);
 		menu.menu_view_background.addActionListener(this);
 		menu.menu_view_statusbar.addActionListener(this);
+		menu.menu_view_theme.addActionListener(this);
+		menu.menu_view_theme_black.addActionListener(this);
+		menu.menu_view_theme_blue.addActionListener(this);
+		menu.menu_view_theme_white.addActionListener(this);
 
 		// menu font
 		menu.menu_font_wordwrap.addActionListener(this);
@@ -189,11 +206,65 @@ class CombinedControls extends JFrame implements ActionListener {
 			System.out.println(e.getSource());
 		}
 		
-		else if (e.getSource()==menu.menu_file_open){}
+		else if (e.getSource()==menu.menu_file_open){
+
+			try{
+					//JFileChoose create a dialog box 
+					JFileChooser open = new JFileChooser();
+					
+					open.showOpenDialog(null);
+					
+						try
+						{
+							
+							FileReader reader = new FileReader(open.getSelectedFile().getPath());  //get the path of file
+		                    BufferedReader br = new BufferedReader(reader);						   //creates a reader to get data form selected file 
+		                    obj.read( br, null );	//write data to textarea
+		                    br.close();				//closing file	
+		                    obj.requestFocus();		
+						}			
+						catch(Exception ae)
+						{} 
+		             
+				}
+			catch(Exception se){}	   
+
+		}
 		
 		else if (e.getSource()==menu.menu_file_save){}
 		
-		else if (e.getSource()==menu.menu_file_saveas){}
+		else if (e.getSource()==menu.menu_file_saveas){
+
+			try{
+					//JFileChoose create a dialog box 
+					JFileChooser saveas = new JFileChooser();
+					
+					saveas.showSaveDialog(null);
+					//create file 
+					File file = new File(saveas.getSelectedFile().getPath());
+					
+						try
+						{
+							String source = obj.getText();    				//getting data from textarea
+							char buffer[] = source.toCharArray();			//converting data from string to char
+							FileWriter f=new FileWriter(file,false);		//creating file writer
+
+							//writing data to file	
+							for(int i=0;i<buffer.length;i++)
+							{
+								f.write(buffer[i]);		
+							}
+							
+							f.close(); 		//closing file
+
+						}
+						catch(Exception ae)
+						{} 
+		             
+				}
+			catch(Exception se){}	            
+      
+		}
 		
 		else if (e.getSource()==menu.menu_file_print){}
 		
@@ -243,11 +314,34 @@ class CombinedControls extends JFrame implements ActionListener {
 		else if (e.getSource()==menu.menu_edit_goto){}
 
 		// menu view		
-		else if (e.getSource()==menu.menu_view_foreground){}
-		
+		else if (e.getSource()==menu.menu_view_foreground){
+
+		}
 		else if (e.getSource()==menu.menu_view_background){}
 		
 		else if (e.getSource()==menu.menu_view_statusbar){}
+
+		else if (e.getSource()==menu.menu_view_theme){}
+
+		else if (e.getSource()==menu.menu_view_theme_black){
+			obj.setBackground(new Color(40,41,35));
+			obj.setForeground(Color.white);
+			obj.setCaretColor(Color.white);
+		}
+
+		else if (e.getSource()==menu.menu_view_theme_blue){
+
+			obj.setBackground(new Color(0,37,51));
+			obj.setForeground(Color.white);
+			obj.setCaretColor(Color.white);
+		}
+
+		else if (e.getSource()==menu.menu_view_theme_white){
+
+			obj.setBackground(Color.white);
+			obj.setForeground(Color.black);
+			obj.setCaretColor(Color.black);
+		}
 
 
 		// menu font
@@ -255,13 +349,13 @@ class CombinedControls extends JFrame implements ActionListener {
 		else if (e.getSource()==menu.menu_font_font){}
 		else if (e.getSource()==menu.menu_font_font_size_large){
 			
-			obj.setFont(new Font("",Font.BOLD,30));   
+			obj.setFont(new Font("",Font.PLAIN,30));   
 		}
 		else if (e.getSource()==menu.menu_font_font_size_medium){
-			obj.setFont(new Font("",Font.BOLD,20));
+			obj.setFont(new Font("",Font.PLAIN,20));
 		}
 		else if (e.getSource()==menu.menu_font_font_size_small){
-			obj.setFont(new Font("",Font.BOLD,13));
+			obj.setFont(new Font("",Font.PLAIN,13));
 		}
 
 		// menu help

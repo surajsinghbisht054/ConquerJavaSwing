@@ -23,7 +23,7 @@
 #
 # compile every time
 javac ./CodeRail/*.java
-# compile this oue also
+# compile this one also
 javac execute.java
 # execute
 java execute

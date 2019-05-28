@@ -10,7 +10,9 @@ package CodeRail;
 			surajsinghbisht054@gmail.com
 
 
-			himanshu sharma
+			Himanshu Sharma
+			himanshusharma2972@gmail.com
+
 */
 
 
@@ -30,10 +32,12 @@ public class editor extends JTextArea implements DocumentListener {
 		// Configurations
 		setVisible(true);
 		setFocusable(true);
-	
-		//setBackground(Color.blue);
-		//setForeground(Color.white);
-		//setFont(new Font("",Font.BOLD,25));
+
+		setBackground(new Color(0,27,51));
+		setForeground(Color.white);
+		setFont(new Font("",Font.PLAIN,20));
+		setCaretColor(Color.WHITE);    //cursor color
+
 		getDocument().addDocumentListener(this);
 	}
 
@@ -89,6 +93,7 @@ public class editor extends JTextArea implements DocumentListener {
 		// Create Text Area Object
 		editor obj = new editor(200, 300);
 		obj1.add(obj);
+		
 		
 	}
 
